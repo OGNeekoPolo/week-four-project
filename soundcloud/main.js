@@ -11,36 +11,43 @@ var audio = document.querySelector(".music-player");
 var searchBar = document.querySelector("#search-bar");
 var results = document.querySelector(".results");
 var button = document.getElementById('search-button');
+var searchForm = document.querySelector(".search-form")
 
 // 2. Create your `onSubmit` event for getting the user's search term
-
-
-// 3. Create your `fetch` request that is called after a submission
-SC.get('/tracks', {
-  q: 'user',
-})
-.then(function(tracks) {
-  console.log(tracks);
-  return tracks;
-})
-.then(function(json){
-  json.map(function(name){
-    let userName = name.user;
-    console.log(userName);
-    let userPic = userName['avatar-url'];
-    results.createElement();
+button.addEventListener("click", function(evt){
+  evt.preventDefault();
+  initialSearch(searchBar.value);
+});
+  // 3. Create your `fetch` request that is called after a submission
+function initialSearch(search){
+  // evt.preventDefault();
+  SC.get('/tracks', {
+    q: search,
+  })
+  .then(function(tracks) {
+    console.log(tracks);
+    return tracks;
+  })
+  .then(function(json){
+    json.map(function(name){
+      let trackName = name.title;
+      let trackCover = name['artwork_url'];
+      console.log(trackName);
+      console.log(trackCover);
+      var div = document.createElement('div');
+      results.appendChild(div);
+      var image = document.createElement('img');
+      image.setAttribute('src', trackCover);
+      div.appendChild(image);
+      var title = document.createElement('h4');
+      title.textContent = trackName;
+      div.appendChild(title);
+    });
   });
-})
+}
+
+initialSearch("");
 // 4. Create a way to append the fetch results to your page
 
 
 // 5. Create a way to listen for a click that will play the song in the audio play
-// function validatePIN (pin) {
-// let pinApprove = pin.length;
-//  if (pinApprove === 4 || 6) {
-//    return true;
-// } else {
-//   return false;
-// };
-//
-// validatePIN("1222");
