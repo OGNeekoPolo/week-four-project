@@ -9,17 +9,18 @@
     <header>
       <h1>Really Awesome Music Site</h1>
     </header>
-    <form class="player">
-      <audio class="music-player" controls="controls" src=""></audio>
+      <div id="audio-wdiget">
+        <audio id="music-player" controls="controls" src=""></audio>
+      </div>
     </section>
     <hr>
     <section class="search">
-      <form class="search-form" onsubmit="search()">
+      <!-- <form class="search-form" onsubmit="search()"> -->
         <div>
           <input type="text" id="search-bar" placeholder="What's your vibe today?">
           <button id="search-button">Search</button>
         </div>
-      </form>
+      <!-- </form> -->
     </section>
     <hr>
     <h4>Search Results:</h4>
